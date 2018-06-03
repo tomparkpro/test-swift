@@ -8,22 +8,6 @@
 
 import Foundation
 
-let myCar = Car(customerChosenColour: "Red", numberOfSetas: 5)
-
-let someRichGuysCar = Car(customerChosenColour: "Gold", numberOfSetas: 5)
-
-print(myCar.colour)
-print(myCar.numberOfSeats)
-print(myCar.typeOfCar)
-
-print(someRichGuysCar.colour)
-print(someRichGuysCar.numberOfSeats)
-print(someRichGuysCar.typeOfCar)
-
-myCar.drive()
-
-print(arc4random_uniform(3))
-
 let mySelfDrivingCar = SelfDrivingCar(customerChosenColour: "Blue", numberOfSetas: 5)
 mySelfDrivingCar.drive()
-print(mySelfDrivingCar.colour)
+
