@@ -9,5 +9,8 @@
 import Foundation
 
 let mySelfDrivingCar = SelfDrivingCar(customerChosenColour: "Blue", numberOfSetas: 5)
+
+//mySelfDrivingCar.destination = "1 Hacker Way"
+
 mySelfDrivingCar.drive()
 

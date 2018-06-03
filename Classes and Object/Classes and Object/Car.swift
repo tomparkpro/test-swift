@@ -29,7 +29,7 @@ class Car {
         
     }
     
-    func drive() {
+func drive() {
         print("Car is moving")
     }
 }
