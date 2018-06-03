@@ -21,3 +21,9 @@ print(someRichGuysCar.numberOfSeats)
 print(someRichGuysCar.typeOfCar)
 
 myCar.drive()
+
+print(arc4random_uniform(3))
+
+let mySelfDrivingCar = SelfDrivingCar(customerChosenColour: "Blue", numberOfSetas: 5)
+mySelfDrivingCar.drive()
+print(mySelfDrivingCar.colour)
