@@ -23,10 +23,12 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, Change
     let weatherDataModel = WeatherDataModel()
 
     
+    
     //Pre-linked IBOutlets
     @IBOutlet weak var weatherIcon: UIImageView!
     @IBOutlet weak var cityLabel: UILabel!
     @IBOutlet weak var temperatureLabel: UILabel!
+    @IBOutlet weak var weatherMeasure: UISwitch!
 
     
     override func viewDidLoad() {
@@ -76,6 +78,7 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, Change
     func updateWeatherData(json: JSON) {
         if let tempResult = json["main"]["temp"].double {
             weatherDataModel.temperature = Int(tempResult - 273.15)
+            weatherDataModel.temperatureInKelvin = tempResult
             weatherDataModel.city = json["name"].stringValue
             weatherDataModel.condition = json["weather"][0]["id"].intValue
             weatherDataModel.weatherIconName = weatherDataModel.updateWeatherIcon(condition: weatherDataModel.condition)
@@ -93,7 +96,12 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, Change
     /***************************************************************/
     func updateUIWithWeatherData() {
         cityLabel.text = weatherDataModel.city
-        temperatureLabel.text = String(weatherDataModel.temperature)
+        if weatherMeasure.isOn {
+            temperatureLabel.text = "\(weatherDataModel.temperature)℃"
+        } else {
+            temperatureLabel.text = "\(weatherDataModel.temperature)℉"
+        }
+        
         weatherIcon.image = UIImage(named: weatherDataModel.weatherIconName)
     }
     
@@ -143,7 +151,9 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, Change
     
     //Write the userEnteredANewCityName Delegate method here:
     func userEnteredANewCityName(city: String) {
-        print(city)
+        let params : [String : String] = ["q" : city, "appid" : APP_ID]
+        
+        getWeatherData(url: WEATHER_URL, parameters: params)
     }
 
     
@@ -156,6 +166,16 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, Change
         
     }
     
+    @IBAction func changeMeasure(_ sender: UISwitch) {
+        print(weatherDataModel.temperature)
+        if sender.isOn {
+            weatherDataModel.temperature = Int(weatherDataModel.temperatureInKelvin - 273.15);
+        } else {
+            weatherDataModel.temperature = Int(weatherDataModel.temperatureInKelvin * 9/5 - 459.67);
+        }
+        print(weatherDataModel.temperature)
+        updateUIWithWeatherData()
+    }
     
     
     
